@@ -58,6 +58,7 @@ export class GametrackComponent implements OnInit {
      await handleClientLoad();
   }
 
+  //Used for Spreadsheet file integration but not required
   createSpreadsheet(title: string) {
     createNewSpreadsheet(title);
   }
@@ -67,7 +68,7 @@ export class GametrackComponent implements OnInit {
     var inputValue = this.gtForm.get('spreadsheetValue').value;
     var descr = this.gtForm.get('description').value;
 
-    if (inputValue === '') { 
+    if (inputValue === '') {
       this.spreadsheetID = '11RaW4d_0L8UaTBj00AvZ1_vlJQEqm1r-vSAlNtSR3gs';  //Default spreadsheet ID for personal use
     }
 
