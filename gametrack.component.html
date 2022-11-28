@@ -1,0 +1,153 @@
+<div class="container-fluid">
+    <div class="card" style="background-color: #fff;">
+        <div [formGroup]="gtForm" style="text-align: center;">
+            <input id='ssID' type="text" formControlName="spreadsheetValue" required placeholder="Enter Spreadsheet ID">
+            <button (click)="setDefaultI()" href=""><i class="fa fa-skype"></i></button>
+            <button (click)="setDefaultS()" href=""><i class="fa fa-eye"></i></button>
+            <input id='desc' type="text" formControlName="description"  placeholder="Description">
+        </div>
+        <div class="link-bar">
+            <!-- <button class="btn-info" id="newSpreadsheet" (click)="this.createSpreadsheet('MyNewSpreadsheet');">New Spreadsheet</button> -->
+            <button class="" id="addRow" (click)="this.addGameToSpreadsheet();"><i class="fa fa-file"></i>  New Game</button>
+            <button class="" id="clear" (click)="this.resetAllStats();" ><i class="fa fa-refresh"></i>  Reset Values</button>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <!-- <h5 class="button-header">Offensive Categories</h5> -->
+            <div id="shotButtons" class="col-12 group">
+                <button class="btn-primary make" id="madeFT" (click)="this.clickFTMade();"><span style="color: #fff;"><i class="fa fa-2x fa-check"></i></span><br/>FT</button>
+                <button class="btn-primary make" id="made2P" (click)="this.click2PTMake();"><span style="color: #fff;"><i class="fa fa-2x fa-check"></i></span><br/>2PT</button>
+                <button class="btn-primary make" id="made3P" (click)="this.click3PTMake();"><span style="color: #fff;"><i class="fa fa-2x fa-check"></i></span><br/>3PT</button>
+            </div>
+            <div class="col-12 group">
+                <button class="btn-primary miss" id="missFT" (click)="this.clickFTMissed();"><span style="color: #fff;"><i class="fa fa-2x fa-times"></i></span><br/>FT Miss</button>
+                <button class="btn-primary miss" id="miss2P" (click)="this.click2PTMiss();"><span style="color: #fff"><i class="fa fa-2x fa-times"></i></span><br/>2PT Miss</button>
+                <button class="btn-primary miss" id="miss3P" (click)="this.click3PTMiss();"><span style="color: #fff"><i class="fa fa-2x fa-times"></i></span><br/>3PT Miss</button>
+            </div>
+            <div class="col-12 group">
+                <button class="btn-secondary" style="background-color: maroon; font-size: .8rem;" id="offReb" (click)="this.clickOffRebound();">Offense Rebound</button>
+                <button class="btn-secondary" style="background-color: maroon;" id="assist" (click)="this.clickAssist();"><span style="color: #00CC33;"><i style="font-weight: bold;" class="fa fa-2x fa-handshake-o"></i></span><br />Assist</button>
+                <button class="btn-secondary" style="background-color: goldenrod; color: #000;" id="to" (click)="this.clickTurnover();"><span style=""><i style="font-weight: bold;" class="fa fa-2x fa-exchange"></i></span><br />Turnover</button>
+            </div>
+            <div class="col-12 group">
+                <button class="btn-secondary" style="background-color: maroon;font-weight: bold; font-size: .8rem;" id="fdrawn" (click)="this.clickFoulDrawn();">Foul Drawn</button>
+                <button class="btn-secondary" style="background-color: goldenrod; color: #000;font-weight: bold; font-size: .9rem;" id="sblk" (click)="this.clickShotBlocked();">Shot Blocked</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <!-- <h5 class="button-header">Defensive Categories</h5> -->
+            <div id="shotButtons" class="col-sm group">
+                <button class="btn-secondary" style="background-color: maroon ; font-size: .8rem;" id="DRB" (click)="this.clickDefRebound();">Defense Rebound</button>
+                <button class="btn-secondary" style="background-color: maroon;" id="stl" (click)="this.clickSteal();"><span style="color: #00CC33;"><i style="font-weight: bold;" class="fa fa-2x fa-dribbble"></i></span><br />Steal</button>
+                <button class="btn-secondary" style="background-color: maroon;" id="blk" (click)="this.clickBlock();"><span style="color: #00CC33;"><i style="font-weight: bold;" class="fa fa-2x fa-times-rectangle"></i></span><br />Block</button>
+                <button class="btn-secondary"  style="background-color: goldenrod; color: #000;" id="foul" (click)="this.clickFoul();"><span style=""><i class="fa fa-2x fa-hand-stop-o"></i></span><br />Foul</button>
+            </div>
+        </div>
+    </div>
+    <div class="totals" (click)="this.grow()" >
+        <div class="col-sm group">
+            <table class="table-responsive table-striped w-100 d-block d-md-table">
+                    <thead>
+                        <tr>
+                        <th scope="col">Points</th>
+                        <th scope="col">Shots</th>
+                        <th scope="col">Made</th>
+                        <th scope="col">FG Pct</th>
+                        <th scope="col">3P Pct</th>
+                        <th scope="col">Free Throws</th>
+                        <th scope="col">Made</th>
+                        <th scope="col">FT Pct</th>
+                        </tr>
+                    </thead>
+                    <tbody style="font-size: 1.5rem;">
+                        <tr>
+                        <td style="font-size: 1.5rem; color: gold;">{{ total }}</td>
+                        <td>{{ shotsTaken }}</td>
+                        <td>{{ shotsMade }}</td>
+                        <td>{{ this.shotPct() }}</td>
+                        <td>{{ this.threePct() }}</td>
+                        <td>{{ ftTaken }}</td>
+                        <td>{{ ftMade }}</td>
+                        <td>{{ this.ftPct() }}</td>
+                        </tr>
+                    </tbody>
+            </table>
+        </div>
+        <p style="font-style: italic;;">(Cllick to open more detailed statistics)</p>
+    </div>
+    <div class="scoreboard" (click)="this.grow()" [ngClass]="goFull ? 'grow' : 'hide'" >
+        <h3>SCOREBOARD <span style="font-size: .6rem; text-align: right;">(Touch anywhere to close)</span></h3>
+        <div class="">
+            <div class="col-12">
+                <table class="">
+                    <tbody>
+                        <tr>
+                            <td class="label">Points</td>
+                            <td class="value">{{ total }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">FG</td>
+                            <td class="value">{{ shotsMade}} / {{ shotsTaken }} : {{ this.shotPct() }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">3P</td>
+                            <td class="value">{{ threeMake}} / {{ threeMake + threeMiss }} : {{ this.threePct() }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">FT</td>
+                            <td class="value">{{ ftm}} / {{ ftm + ft0 }} : {{ this.ftPct() }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Off Rebounds</td>
+                            <td class="value">{{ offReb }} </td>
+                        </tr>
+                        <tr>
+                            <td class="label">Def Rebounds</td>
+                            <td class="value">{{ defReb }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Total Rebounds</td>
+                            <td class="value">{{ offReb + defReb }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Assists</td>
+                            <td class="value">{{ ast }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Steals</td>
+                            <td class="value">{{ stl }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Blocks</td>
+                            <td class="value">{{ blk }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Turnovers</td>
+                            <td class="value">{{ to }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Shots Blocked</td>
+                            <td class="value">{{ sblk }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Personal Fouls</td>
+                            <td class="value">{{ pf }}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Fouls Drawn</td>
+                            <td class="value">{{ pfd }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <h5 style="color: orange">Player Efficiency Rating:  {{ this.getRating() }}</h5>
+                <p style="color: lightskyblue">(Points + Rebounds + Assists + Steals + Blocks + Fouls Drawn) - (Missed Field Goals + Missed Free Throws + Turnovers + Shots Rejected + Fouls Committed)</p>
+            </div>
+        </div>
+        <button style="width: 100%" class="btn btn-secondary text-center">CLOSE</button>
+    </div>
+</div>
