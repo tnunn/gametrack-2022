@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { error } from 'util';
-declare function handleClientLoad(): any;
+//declare function handleClientLoad(): any;
 declare function createNewSpreadsheet(title: string): any;
 declare function addRow(spreadsheetID: string, description: string, date: string, cb): any;
 declare function updateRow(spreadsheetID: string, range: string, values: Array<string>, cb): any;
@@ -55,12 +55,12 @@ export class GametrackComponent implements OnInit {
 
    async ngOnInit() {
      // Had to use async/await so it waits for the google authentication to occur;  used in the JS file functions also right now
-     await handleClientLoad();
+     //await handleClientLoad();
   }
 
   //Used for Spreadsheet file integration but not required
   createSpreadsheet(title: string) {
-    createNewSpreadsheet(title);
+    //createNewSpreadsheet(title);
   }
 
   /** Add new game entry row to existing spreadsheet */
