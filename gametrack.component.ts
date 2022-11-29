@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { error } from 'util';
-//declare function handleClientLoad(): any;
-declare function createNewSpreadsheet(title: string): any;
+// declare function handleClientLoad(): any;
+/* declare function createNewSpreadsheet(title: string): any;
 declare function addRow(spreadsheetID: string, description: string, date: string, cb): any;
-declare function updateRow(spreadsheetID: string, range: string, values: Array<string>, cb): any;
+declare function updateRow(spreadsheetID: string, range: string, values: Array<string>, cb): any; */
 
 @Component({
   selector: 'app-gametrack',
@@ -55,12 +55,12 @@ export class GametrackComponent implements OnInit {
 
    async ngOnInit() {
      // Had to use async/await so it waits for the google authentication to occur;  used in the JS file functions also right now
-     //await handleClientLoad();
+     // await handleClientLoad();
   }
 
-  //Used for Spreadsheet file integration but not required
+  // Used for Spreadsheet file integration but not required
   createSpreadsheet(title: string) {
-    //createNewSpreadsheet(title);
+    // createNewSpreadsheet(title);
   }
 
   /** Add new game entry row to existing spreadsheet */
@@ -69,18 +69,18 @@ export class GametrackComponent implements OnInit {
     var descr = this.gtForm.get('description').value;
 
     if (inputValue === '') {
-      this.spreadsheetID = '11RaW4d_0L8UaTBj00AvZ1_vlJQEqm1r-vSAlNtSR3gs';  //Default spreadsheet ID for personal use
+      this.spreadsheetID = '11RaW4d_0L8UaTBj00AvZ1_vlJQEqm1r-vSAlNtSR3gs';  // Default spreadsheet ID for personal use
     }
 
     this.resetAllStats();
     let today: Date = new Date();
     let formattedDate = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear();
 
-    addRow(this.spreadsheetID, descr, formattedDate, (response) =>  {
+/*     addRow(this.spreadsheetID, descr, formattedDate, (response) =>  {
         // console.log(response.updates.updatedRange);
         this.rowRange = response.updates.updatedRange;
         this.toastr.success('Successfully created a new entry in the Stat Sheet for you', 'New Game', {});
-    });
+    }); */
   }
 
   /** Update a row per the user initiated event */
@@ -88,10 +88,10 @@ export class GametrackComponent implements OnInit {
 
       if (this.spreadsheetID === '') { // Do nothing
       } else {
-        updateRow(this.spreadsheetID,
+/*         updateRow(this.spreadsheetID,
         this.rowRange, this.valueArray, (response) =>  {
           // console.log('Update response: ' + response);
-        });
+        }); */
       }
     }
 
@@ -286,11 +286,11 @@ export class GametrackComponent implements OnInit {
       return eff.toString();
     }
 
-    setDefaultS() {
+/*     setDefaultS() {
       (<HTMLInputElement>document.getElementById('ssID')).value = '11RaW4d_0L8UaTBj00AvZ1_vlJQEqm1r-vSAlNtSR3gs';
     }
     setDefaultI() {
       (<HTMLInputElement>document.getElementById('ssID')).value = '1wk3nqWyyZ77g-wYgWYjIxCNUxTLonQexPv8O2l0VHjM';
-    }
+    } */
 
 }
